@@ -23,6 +23,10 @@ class CreateUser
 
     public function getUser(array $attributes = [])
     {
+        if (isset($attributes['password']) && is_string($attributes['password'])) {
+            $attributes['password'] = hash('sha256', $attributes['password']);
+        }
+
         return $this->userFactory->getUser($attributes);
     }
 }
