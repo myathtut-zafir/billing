@@ -44,4 +44,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function setEmail(mixed $email)
+    {
+        $this->email=$email;
+    }
+
+    public function setPassword(mixed $password)
+    {
+        $this->password=$password;
+    }
+
+    public function setRole(mixed $role)
+    {
+        $this->role=$role;
+    }
+
+    public function setName(mixed $name)
+    {
+        $this->name=$name;
+    }
 }
