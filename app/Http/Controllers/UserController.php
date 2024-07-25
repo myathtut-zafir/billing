@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Builder\AdminBuilder;
+use App\Builder\CustomerBuilder;
 use App\Builder\DirectorBuilder;
 use App\Factories\CreateAdminFactory;
 use App\Factories\CreateCustomerFactory;
@@ -27,11 +28,11 @@ class UserController extends Controller
 //         ]);
 
         //builder pattern
-//        $director = new DirectorBuilder();
-//        $user = $director->build(new AdminBuilder(), $request->all());
+        $director = new DirectorBuilder();
+        $user = $director->build(new CustomerBuilder(), $request->all());
 //        return $user;
-        $user=(new AdminBuilder())->setAttribute($request->all())->setRole()->getUser();
         $user->save();
+
 
 
     }

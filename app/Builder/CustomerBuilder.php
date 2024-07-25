@@ -20,6 +20,7 @@ class CustomerBuilder implements IUserBuilder
         $this->user->setEmail($values['email']);
         $this->user->setPassword($values['password']);
         $this->user->setName($values['name']);
+        return $this;
     }
 
     public function getUser()
@@ -30,5 +31,6 @@ class CustomerBuilder implements IUserBuilder
     public function setRole()
     {
         $this->user->setRole("customer");
+        return $this;
     }
 }

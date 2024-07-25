@@ -9,9 +9,7 @@ class DirectorBuilder
 
     public function build(IUserBuilder $builder, $values)
     {
-        $builder->setAttribute($values);
-        $builder->setRole();
+        return $builder->setAttribute($values)->setRole()->getUser();
 
-        return $builder->getUser();
     }
 }
