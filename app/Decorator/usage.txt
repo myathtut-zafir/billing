@@ -1,0 +1,24 @@
+$base= new BaseComponent();
+$trim= new TrimDecorator($base);
+$mention= new MentionDecorator($trim);
+$word= new WordCountDecorator($mention);
+
+echo $word->formatText($text)
+
+
+$text="
+Hello,world!
+This is a test.
+@nick this is extra space.              ";
+
+$base= new BaseComponent();
+echo $base->formatText($text). PHP_EOL. PHP_EOL;
+
+$trim= new TrimDecorator($base);
+echo $trim->formatText($text). PHP_EOL. PHP_EOL;
+
+$mention= new MentionDecorator($trim);
+echo $mention->formatText($text). PHP_EOL. PHP_EOL;
+
+$trim= new WordCountDecorator($mention);
+echo $trim->formatText($text). PHP_EOL. PHP_EOL;
