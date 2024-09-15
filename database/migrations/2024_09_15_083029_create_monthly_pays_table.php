@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('billing_month');
             $table->string('billing_year');
+            $table->float('billing_amount');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
