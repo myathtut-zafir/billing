@@ -7,9 +7,9 @@ use App\Models\User;
 
 class BillingController extends Controller
 {
-    public function index(User $user)
+    public function index()
     {
-        $monthlyBill = MonthlyPay::where('user_id', $user->id)->get();
+        $monthlyBill = MonthlyPay::where('user_id', auth()->user()->id)->get();
         return $monthlyBill;
     }
 }
