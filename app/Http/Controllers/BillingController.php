@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MonthlyPay;
+use App\Models\TestingMake;
 use App\Models\User;
 
 class BillingController extends Controller
@@ -11,5 +12,16 @@ class BillingController extends Controller
     {
         $monthlyBill = MonthlyPay::where('user_id', auth()->user()->id)->get();
         return $monthlyBill;
+    }
+
+    public function store()
+    {
+
+        $testingMake = TestingMake::make('John Doe', 'aa.htut@gmail.com');
+        $testingMake2=new TestingMake('John Doe', 'aa.htut@gmail.com');
+
+//        return $testingMake->getEmail();
+//        return $testingMake2->getEmail();
+
     }
 }

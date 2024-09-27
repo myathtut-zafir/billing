@@ -27,4 +27,5 @@ Route::post('/login', LoginController::class)->name('login');
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('/billings', [BillingController::class,'index'])->name('get.billings');
+    Route::get('/store', [BillingController::class,'store'])->name('get.store');
 });
