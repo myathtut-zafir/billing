@@ -8,12 +8,13 @@ use App\Builder\DirectorBuilder;
 use App\Factories\CreateAdminFactory;
 use App\Factories\CreateCustomerFactory;
 use App\Factories\CreateUser;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(UserRequest $request)
     {
 
         //factory pattern

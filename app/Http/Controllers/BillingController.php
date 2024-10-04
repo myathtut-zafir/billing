@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BillingResource;
 use App\Models\MonthlyPay;
 use App\Models\TestingMake;
 use App\Models\User;
@@ -11,7 +12,7 @@ class BillingController extends Controller
     public function index()
     {
         $monthlyBill = MonthlyPay::where('user_id', auth()->user()->id)->get();
-        return $monthlyBill;
+        return BillingResource::collection($monthlyBill);
     }
 
     public function store()

@@ -143,6 +143,11 @@ return [
         'driver' => 'file',
         // 'store' => 'redis',
     ],
+    'available_locales' => [
+        'English' => 'en',
+        'Russian' => 'ru',
+        'French' => 'fr',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -184,5 +189,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
+
+    'locale_test_welcome'=>"account-next-action.escalate_to_ops_mgr",
+
 
 ];
