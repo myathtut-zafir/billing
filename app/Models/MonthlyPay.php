@@ -13,4 +13,9 @@ class MonthlyPay extends Model
         'billing_year',
         'billing_amount',
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new \App\Scopes\MonthlyPay());
+    }
 }
