@@ -24,4 +24,18 @@ class BillingController extends Controller
 //        return $testingMake2->getEmail();
 
     }
+    /**
+     * testing the tap method
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update()
+    {
+//        return MonthlyPay::find(1)->update(['billing_amount' => 1000]); // it will return true or false
+        $monthlyPay = MonthlyPay::find(1);
+        return response()->json(tap($monthlyPay)->update([
+            'billing_amount' => 55555,
+        ])); // it will return model obkject
+
+    }
 }
