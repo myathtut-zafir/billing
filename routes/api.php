@@ -29,4 +29,5 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/billings', [BillingController::class,'index'])->name('get.billings');
     Route::get('/store', [BillingController::class,'store'])->name('get.store');
     Route::get('/update', [BillingController::class,'update'])->name('get.store');
+    Route::get('/discount', [BillingController::class,'discount'])->name('get.discount');
 });
