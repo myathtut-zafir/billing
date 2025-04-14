@@ -45,8 +45,7 @@ class BillingController extends Controller
     public function discount()
     {
     $discount=new DiscountClient();
-    $discount->applyDiscount(Discount::percentOff(-10));
-
-
+    $discount->applyDiscount(Discount::percentOff(90));
+    return $discount->discount->percentage;
     }
 }
