@@ -5,7 +5,7 @@ namespace App\Discount;
 class Discount
 {
 
-    public function __construct(private readonly float $percentage)
+    public function __construct(public readonly float $percentage)
     {
         if ($percentage <= 0 || $percentage > 1.0) {
             throw new \InvalidArgumentException('Percentage must be between 0 and 100.');
