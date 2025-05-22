@@ -25,6 +25,7 @@ Route::post('/users', UserController::class)->name('user.create');
 
 Route::post('/login', LoginController::class)->name('login');
 Route::post('/submit', [\App\Http\Controllers\SubmitController::class,'store'])->name('submit');
+Route::post('/store', [\App\Http\Controllers\SubmitController::class,'save'])->name('save');
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('/billings', [BillingController::class,'index'])->name('get.billings');
