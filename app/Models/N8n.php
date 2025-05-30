@@ -11,6 +11,7 @@ class N8n extends Model
         'name',
         'email',
         'message',
+        'data',
     ];
 
 }
