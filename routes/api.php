@@ -29,6 +29,8 @@ Route::post('/store', [\App\Http\Controllers\SubmitController::class,'save'])->n
 Route::post('/lhdn-submit', [\App\Http\Controllers\SubmitController::class,'lhdnSubmit']);
 Route::post('/tokenResponse', [\App\Http\Controllers\SubmitController::class,'tokenResponse']);
 Route::post('/dataResponse', [\App\Http\Controllers\SubmitController::class,'dataResponse']);
+Route::post('/dataSendFailResponse', [\App\Http\Controllers\SubmitController::class,'dataSendFailResponse']);
+Route::post('/rejectResponse', [\App\Http\Controllers\SubmitController::class,'rejectResponse']);
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('/billings', [BillingController::class,'index'])->name('get.billings');
