@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 
 
+use App\Jobs\SendWebhookJob;
+use App\Jobs\SendWebhookTestJob;
 use App\Models\N8n;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 
 class SubmitController extends Controller
 {
@@ -16,8 +20,8 @@ class SubmitController extends Controller
 
         $data = $request->all();
 
-        $n8nWebhookUrl = 'http://localhost:5678/webhook-test/01c440ef-08a0-49bf-aa23-f494d0989a0f';
-//        $n8nWebhookUrl = 'https://activepieces.stg.getcars.dev/api/v1/webhooks/EpZnk4YxmiMHNoSSnHYhv';
+//        $n8nWebhookUrl = 'http://localhost:5678/webhook-test/01c440ef-08a0-49bf-aa23-f494d0989a0f';
+        $n8nWebhookUrl = 'https://activepieces.stg.getcars.dev/api/v1/webhooks/EpZnk4YxmiMHNoSSnHYhv';
 
         $response=Http::post($n8nWebhookUrl, [
             'user_name' => $data['name'],
@@ -32,7 +36,7 @@ class SubmitController extends Controller
     {
 
         $data = $request;
-    Log::info('testing',[json_encode($data)]);
+//    Log::info('testing',[json_encode($data)]);
                 N8n::create([
             'data' => json_encode($data),
         ]);
@@ -51,13 +55,15 @@ class SubmitController extends Controller
     {
 
 
-        $n8nWebhookUrl = 'http://localhost:5678/webhook-test/5ed8e535-2b4b-4451-ae5e-39761aa404e6';
-        $data = $request->all();
-
-        $data = $request->all();
+//        $n8nWebhookUrl = 'http://localhost:5678/webhook-test/5ed8e535-2b4b-4451-ae5e-39761aa404e6';
+        $n8nWebhookUrl = 'http://localhost:4000/api/v1/webhooks/o0PcguQ0Ayskr2zby2zAK';
+//        $data = $request->all();
+//
+//        $data = $request->all();
 
         // Get the raw request body JSON string
         $requestBodyString = $request->getContent();
+
 
         // Parse JSON string to associative array (equivalent to JSON.parse())
         $requestBodyJSON = json_decode($requestBodyString, true);
@@ -78,7 +84,22 @@ class SubmitController extends Controller
             "format"=> "JSON",
             "codeNumber"=> "INV_199651",
         ];
-        $response=Http::post($n8nWebhookUrl, $data);
+        dd($data);
+        $throttle = Redis::throttle('saving:e-invoice-data-for-composing-'.Str::random(4))
+            ->block(10)
+            ->allow(10)
+            ->every(10);
+//        $response=Http::post($n8nWebhookUrl, $data);
+        for ($i = 0; $i <= 20; $i++) {
+
+            $throttle->then(fn () => SendWebhookTestJob::dispatch($n8nWebhookUrl, $data,$i),
+            );
+//            SendWebhookJob::dispatch($n8nWebhookUrl, $data,$i);
+        }
+//        SendWebhookJob::dispatch(
+//            $n8nWebhookUrl,
+//            $data
+//        );
 
         return $response->json();
     }
@@ -86,7 +107,7 @@ class SubmitController extends Controller
     {
 
         $data = $request->all();
-        Log::info('dd',[$data]);
+        Log::info('token',[$data]);
 
         return response()->json(['status' => 'success']);
     }
@@ -98,4 +119,21 @@ class SubmitController extends Controller
 
         return response()->json(['status' => 'success']);
     }
+    public function dataSendFailResponse(Request $request)
+    {
+
+        $data = $request->all();
+        Log::info('data_fail',[$data]);
+
+        return response()->json(['status' => 'success']);
+    }
+    public function rejectResponse(Request $request)
+    {
+
+        $data = $request->all();
+        Log::info('reject',[$data]);
+
+        return response()->json(['status' => 'success']);
+    }
+
 }
