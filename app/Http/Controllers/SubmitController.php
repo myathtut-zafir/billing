@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-
 use App\Jobs\SendWebhookJob;
 use App\Jobs\SendWebhookTestJob;
 use App\Models\N8n;
@@ -23,7 +22,7 @@ class SubmitController extends Controller
 //        $n8nWebhookUrl = 'http://localhost:5678/webhook-test/01c440ef-08a0-49bf-aa23-f494d0989a0f';
         $n8nWebhookUrl = 'https://activepieces.stg.getcars.dev/api/v1/webhooks/EpZnk4YxmiMHNoSSnHYhv';
 
-        $response=Http::post($n8nWebhookUrl, [
+        $response = Http::post($n8nWebhookUrl, [
             'user_name' => $data['name'],
             'user_email' => $data['email'],
             'message' => $data['message'],
@@ -32,15 +31,15 @@ class SubmitController extends Controller
 
         return $response->json();
     }
+
     public function save(Request $request)
     {
 
         $data = $request;
 //    Log::info('testing',[json_encode($data)]);
-                N8n::create([
+        N8n::create([
             'data' => json_encode($data),
         ]);
-
 
 
 //        N8n::create([
@@ -51,12 +50,13 @@ class SubmitController extends Controller
 
         return response()->json(['status' => 'success']);
     }
+
     public function lhdnSubmit(Request $request)
     {
 
 
 //        $n8nWebhookUrl = 'http://localhost:5678/webhook-test/5ed8e535-2b4b-4451-ae5e-39761aa404e6';
-        $n8nWebhookUrl = 'http://localhost:4000/api/v1/webhooks/o0PcguQ0Ayskr2zby2zAK';
+        $n8nWebhookUrl = 'https://n8n.stg.getcars.dev/webhook-test/52777248-7651-472f-a56d-aed8da54c6d1';
 //        $data = $request->all();
 //
 //        $data = $request->all();
@@ -79,59 +79,78 @@ class SubmitController extends Controller
         // Convert hash to hexadecimal string (equivalent to .toString(Crypto.enc.Hex))
         $documentHash = hash('sha256', $requestBodyString);// hex output directly
         $data = [
-            'document' => $documentBase64,
-            'documentHash' => $documentHash,
-            "format"=> "JSON",
-            "codeNumber"=> "INV_199651",
+            "data" => [
+                'document' => $documentBase64,
+                'documentHash' => $documentHash,
+                "format" => "JSON",
+                "codeNumber" => "1750399695-FSMY202500043-2025/05"
+            ],
+            "last_invoice_id" => 1,
+            "is_retry" => false,
+            "token" => "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk2RjNBNjU2OEFEQzY0MzZDNjVBNDg1MUQ5REM0NTlFQTlCM0I1NTRSUzI1NiIsIng1dCI6Imx2T21Wb3JjWkRiR1draFIyZHhGbnFtenRWUSIsInR5cCI6ImF0K2p3dCJ9.eyJpc3MiOiJodHRwczovL3ByZXByb2QtaWRlbnRpdHkubXlpbnZvaXMuaGFzaWwuZ292Lm15IiwibmJmIjoxNzUwNDAwMTA4LCJpYXQiOjE3NTA0MDAxMDgsImV4cCI6MTc1MDQwMzcwOCwiYXVkIjpbIkludm9pY2luZ0FQSSIsImh0dHBzOi8vcHJlcHJvZC1pZGVudGl0eS5teWludm9pcy5oYXNpbC5nb3YubXkvcmVzb3VyY2VzIl0sInNjb3BlIjpbIkludm9pY2luZ0FQSSJdLCJjbGllbnRfaWQiOiJhZTU5N2QzYS1lYzkwLTQ2NWYtOWVjMy05MDMxNzczOTg5OTIiLCJJc1RheFJlcHJlcyI6IjEiLCJJc0ludGVybWVkaWFyeSI6IjAiLCJJbnRlcm1lZElkIjoiMCIsIkludGVybWVkVElOIjoiIiwiSW50ZXJtZWRST0IiOiIiLCJJbnRlcm1lZEVuZm9yY2VkIjoiMiIsIm5hbWUiOiJDMjY3OTA2ODcwMDA6YWU1OTdkM2EtZWM5MC00NjVmLTllYzMtOTAzMTc3Mzk4OTkyIiwiU1NJZCI6Ijg5Y2I0MDk3LTU4Y2UtMTAxMC0wYzNlLWMxZjBiNTgxZmRiNyIsInByZWZlcnJlZF91c2VybmFtZSI6IkZNUyBuOG4gYW5kIFVDRCBXb3JrYXRvIiwiVGF4SWQiOiI4MjA3MCIsIlRheHBheWVyVElOIjoiQzI2NzkwNjg3MDAwIiwiUHJvZklkIjoiMTA3ODc0IiwiSXNUYXhBZG1pbiI6IjAiLCJJc1N5c3RlbSI6IjEifQ.DDhS-PVcKJ9Nr5mHrX_f09dp5O6txfW6TwsrU-HWCVEu7Mha50pY6C4Bd_uHqcr7_h5v25VQELaUUHsVAOJ7zGXCWa6-7IpNWSIUlzXjoGJOPyQikJuyOpjxJ02pPnKhra5_oRl88oLynYo6UevOoRyYLFgNpOQ_izWiw2-1CwswdK5AN5FohEjVlBuuz6p_WG706iJSIGtONzDNZFvs0KCEmqUjkhCxah0tlJgcbFdMKs31bFRS9XT-Gsp1JexcqpjsA8aJ34IQ__eBihWo5iHhAHh3kJ_XnDPssbQvVrMQO_EYVGzSTegXiwCNIX92mdxqW6pAar9BRcS4b6TOmg",
         ];
-        dd($data);
-        $throttle = Redis::throttle('saving:e-invoice-data-for-composing-'.Str::random(4))
-            ->block(10)
-            ->allow(10)
-            ->every(10);
-//        $response=Http::post($n8nWebhookUrl, $data);
-        for ($i = 0; $i <= 20; $i++) {
 
-            $throttle->then(fn () => SendWebhookTestJob::dispatch($n8nWebhookUrl, $data,$i),
-            );
-//            SendWebhookJob::dispatch($n8nWebhookUrl, $data,$i);
-        }
+//        $throttle = Redis::throttle('saving:e-invoice-data-for-composing-'.Str::random(4))
+//            ->block(10)
+//            ->allow(10)
+//            ->every(10);
+////        $response=Http::post($n8nWebhookUrl, $data);
+//        for ($i = 0; $i <= 20; $i++) {
+//
+//            $throttle->then(fn () => SendWebhookTestJob::dispatch($n8nWebhookUrl, $data,$i),
+//            );
+////            SendWebhookJob::dispatch($n8nWebhookUrl, $data,$i);
+//        }
 //        SendWebhookJob::dispatch(
 //            $n8nWebhookUrl,
 //            $data
 //        );
+        Http::post($n8nWebhookUrl, $data);
 
-        return $response->json();
+        return $data;
     }
+
     public function tokenResponse(Request $request)
     {
 
         $data = $request->all();
-        Log::info('token',[$data]);
+        Log::info('token', [$data]);
 
         return response()->json(['status' => 'success']);
     }
+
     public function dataResponse(Request $request)
     {
 
         $data = $request->all();
-        Log::info('data',[$data]);
+        Log::info('data', [$data]);
 
         return response()->json(['status' => 'success']);
     }
+
     public function dataSendFailResponse(Request $request)
     {
 
         $data = $request->all();
-        Log::info('data_fail',[$data]);
+        Log::info('data_fail', [$data]);
 
         return response()->json(['status' => 'success']);
     }
+
     public function rejectResponse(Request $request)
     {
 
         $data = $request->all();
-        Log::info('reject',[$data]);
+        Log::info('reject', [$data]);
+
+        return response()->json(['status' => 'success']);
+    }
+
+    public function fireMail(Request $request)
+    {
+
+        $data = $request->all();
+        Log::info('mail', [$data]);
 
         return response()->json(['status' => 'success']);
     }

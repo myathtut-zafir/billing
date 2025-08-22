@@ -32,6 +32,8 @@ Route::post('/dataResponse', [\App\Http\Controllers\SubmitController::class,'dat
 Route::post('/dataSendFailResponse', [\App\Http\Controllers\SubmitController::class,'dataSendFailResponse']);
 Route::post('/rejectResponse', [\App\Http\Controllers\SubmitController::class,'rejectResponse']);
 
+Route::post('/mail-fire', [\App\Http\Controllers\SubmitController::class,'fireMail']);
+
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('/billings', [BillingController::class,'index'])->name('get.billings');
     Route::get('/store', [BillingController::class,'store'])->name('get.store');
