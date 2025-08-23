@@ -1,11 +1,10 @@
 <?php
-declare(strict_types=1);
 namespace App\Models;
 
 class PaymentScheduleModel
 {
 
-    function calculate($totalAmount, $installments)
+    function calculate(int $totalAmount, int $installments)
     {
         return $totalAmount / $installments;
     }
