@@ -34,6 +34,7 @@ Route::post('/rejectResponse', [\App\Http\Controllers\SubmitController::class,'r
 
 Route::post('/mail-fire', [\App\Http\Controllers\SubmitController::class,'fireMail']);
 Route::post('/dsa', [\App\Http\Controllers\DsaController::class,'store']);
+Route::post('/sorting', [\App\Http\Controllers\DsaController::class,'sorting']);
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('/billings', [BillingController::class,'index'])->name('get.billings');

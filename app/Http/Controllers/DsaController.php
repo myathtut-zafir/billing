@@ -39,4 +39,45 @@ class DsaController extends Controller
         dd("Value not found in the array");
 
     }
+
+    function sorting()
+    {
+        $unsorted_array = [6, 2, 8, 1, 9, 4, 7, 3, 5];
+        return $this->mergeSort($unsorted_array);
+
+    }
+
+    function mergeSort(array $arr) {
+        $count = count($arr);
+        if ($count <= 1) {
+            return $arr;
+        }
+
+        $mid = (int)($count / 2);
+        $left = array_slice($arr, 0, $mid);
+        $right = array_slice($arr, $mid);
+        Log::info('', ["a"=>$left]);
+        Log::info('', ["a"=>$right]);
+        $left = $this->mergeSort($left);
+        $right = $this->mergeSort($right);
+        Log::info('', [
+            'left' => $left,
+            'right' => $right
+        ]);
+        return $this->merge($left, $right);
+    }
+
+    function merge(array $left, array $right) {
+        $result = [];
+        while (count($left) > 0 && count($right) > 0) {
+            if ($left[0] <= $right[0]) {
+                $result[] = array_shift($left);
+            } else {
+                $result[] = array_shift($right);
+            }
+        }
+//        Log::info("dd",["r"=> $result]);
+        Log::info("dd",["r"=> array_merge($result, $left, $right)]);
+        return array_merge($result, $left, $right);
+    }
 }
